@@ -4,7 +4,9 @@
   "description": "The server portion of the Lyne Service",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon -e js,json,html,css server.js"
   },
   "repository": {
     "type": "git",
@@ -17,13 +19,27 @@
     "Quyk"
   ],
   "author": {
-    "name" : "Edward Seim",
-    "email" : "sirseim@gmail.com",
-    "url" : "http://sirseim.github.io/"
+    "name": "Edward Seim",
+    "email": "sirseim@gmail.com",
+    "url": "http://sirseim.github.io/"
   },
   "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/LyneApp/lyne-server/issues"
   },
-  "homepage": "https://github.com/LyneApp/lyne-server#readme"
+  "homepage": "https://github.com/LyneApp/lyne-server#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "mocha-istanbul": "^0.3.0",
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0"
+  }
 }

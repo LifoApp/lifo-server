@@ -1,0 +1,15 @@
+extends: airbnb-base
+installedESLint: true
+env:
+  browser: true
+  node: true
+  mocha: true
+plugins:
+  - import
+rules:
+  no-console:
+    off
+  no-nested-ternary:
+    off
+  no-shadow:
+    off
