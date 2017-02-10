@@ -6,6 +6,10 @@
   "scripts": {
     "start": "node server.js",
     "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
+    "lint": "eslint server.js **/*.js",
+    "report": "istanbul report",
+    "report-summary": "istanbul report text-summary lcov",
+    "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
     "nodemon": "nodemon -e js,json,html,css server.js"
   },
   "repository": {
@@ -30,6 +34,7 @@
   "homepage": "https://github.com/LyneApp/lyne-server#readme",
   "devDependencies": {
     "chai": "^3.5.0",
+    "codecov": "^1.0.1",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.0",
