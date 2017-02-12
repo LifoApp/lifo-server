@@ -12,6 +12,9 @@
     "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
     "nodemon": "nodemon -e js,json,html,css server.js"
   },
+  "engines": {
+    "node": "7.4.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LyneApp/lyne-server.git"
