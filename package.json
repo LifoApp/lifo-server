@@ -1,7 +1,7 @@
 {
-  "name": "lyne-app-server",
+  "name": "lifo-app-server",
   "version": "0.0.0",
-  "description": "The server portion of the Lyne Service",
+  "description": "The server portion of the Lifo Service",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -20,7 +20,8 @@
     "Lyne",
     "Queue",
     "Lyn",
-    "Quyk"
+    "Quyk",
+    "Lifo"
   ],
   "author": {
     "name": "Edward Seim",

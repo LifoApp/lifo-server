@@ -1,5 +1,5 @@
-# Lyne App Server
-###### The server portion of the Lyne Service
+# Lifo App Server
+###### The server portion of the Lifo Service
 
 [![Version][version-img]][version-url]
 [![Build Status][build-img]][build-url]
@@ -20,8 +20,8 @@ brew install node
 ### Installation
 Download and install the server.
 ```
-git clone https://github.com/LyneApp/lyne-server.git
-cd lyne-server
+git clone https://github.com/LifoApp/lifo-server.git
+cd lifo-server
 npm install
 ```
 
@@ -52,19 +52,19 @@ npm run lint
 To view a coverage report, run `npm test`, then `npm run report`, then open up `coverage/lcov-report/index.html` in a web browser.
 
 [version-img]: https://img.shields.io/badge/version-alpha%201-red.svg
-[version-url]: https://github.com/LyneApp/lyne-server
+[version-url]: https://github.com/LifoApp/lifo-server
 
-[build-img]: https://travis-ci.org/LyneApp/lyne-server.svg?branch=master
-[build-url]: https://travis-ci.org/LyneApp/lyne-server
+[build-img]: https://travis-ci.org/LifoApp/lifo-server.svg?branch=master
+[build-url]: https://travis-ci.org/LifoApp/lifo-server
 
-[codecov-img]: https://codecov.io/gh/LyneApp/lyne-server/branch/master/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/LyneApp/lyne-server
+[codecov-img]: https://codecov.io/gh/LifoApp/lifo-server/branch/master/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/LifoApp/lifo-server
 
-[dependency-img]: https://david-dm.org/LyneApp/lyne-server.svg
-[dependency-url]: https://david-dm.org/LyneApp/lyne-server
+[dependency-img]: https://david-dm.org/LifoApp/lifo-server.svg
+[dependency-url]: https://david-dm.org/LifoApp/lifo-server
 
-[dev-dependency-img]: https://david-dm.org/LyneApp/lyne-server/dev-status.svg
-[dev-dependency-url]: https://david-dm.org/LyneApp/lyne-server?type=dev
+[dev-dependency-img]: https://david-dm.org/LifoApp/lifo-server/dev-status.svg
+[dev-dependency-url]: https://david-dm.org/LifoApp/lifo-server?type=dev
 
-[snyk-img]: https://snyk.io/test/github/LyneApp/lyne-server.git/badge.svg
-[snyk-url]: https://snyk.io/test/github/LyneApp/lyne-server.git
+[snyk-img]: https://snyk.io/test/github/LifoApp/lifo-server.git/badge.svg
+[snyk-url]: https://snyk.io/test/github/LifoApp/lifo-server.git
