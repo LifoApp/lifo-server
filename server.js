@@ -6,16 +6,15 @@ const Inert = require('inert');
 const NunjucksHapi = require('nunjucks-hapi');
 const Good = require('good');
 
-const postgresPool = require(Path.join(__dirname, 'plugins/postgres-pool.js'));
+const postgresPool = require('./plugins/postgres-pool.js');
+
+const Api = require('./api');
+const Views = require('./views');
 
 const setup = {
   host: process.env.NODE_ENV === 'production' ? '0.0.0.0' : 'localhost',
   port: process.env.PORT || '8080',
 };
-
-const Api = require(Path.join(__dirname, 'api'));
-// console.log(Api);
-const viewRoutes = require(Path.join(__dirname, 'routes/view_routes.js'));
 
 const BasicServer = new Hapi.Server({
   connections: {
@@ -30,6 +29,7 @@ BasicServer.connection({
   host: setup.host,
   port: setup.port,
 });
+
 BasicServer.register(postgresPool);
 BasicServer.register(Api, {
   routes: {
@@ -45,8 +45,8 @@ BasicServer.register(Vision, () => {
     },
     path: Path.join(__dirname, 'templates'),
   });
-  BasicServer.route(viewRoutes);
 });
+BasicServer.register(Views);
 
 BasicServer.register({
   register: Good,
@@ -68,9 +68,7 @@ BasicServer.register({
     },
   },
 }, (err) => {
-  if (err) {
-    BasicServer.log(['error', 'good'], err);
-  }
+  if (err) BasicServer.log(['error', 'good'], err);
 });
 
 BasicServer.start(() => {
