@@ -30,7 +30,7 @@ BasicServer.connection({
   port: setup.port,
 });
 
-BasicServer.register(postgresPool);
+// BasicServer.register(postgresPool);
 BasicServer.register(Api, {
   routes: {
     prefix: '/api',
