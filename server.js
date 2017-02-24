@@ -6,7 +6,7 @@ const Inert = require('inert');
 const NunjucksHapi = require('nunjucks-hapi');
 const Good = require('good');
 
-// const postgresPool = require('./plugins/postgres-pool.js');
+const Sequelize = require('./plugins/hapi-sequelize.js');
 
 const Api = require('./api');
 const Views = require('./views');
@@ -30,7 +30,7 @@ BasicServer.connection({
   port: setup.port,
 });
 
-// BasicServer.register(postgresPool);
+BasicServer.register(Sequelize);
 BasicServer.register(Api, {
   routes: {
     prefix: '/api',
