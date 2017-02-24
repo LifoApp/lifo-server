@@ -8,7 +8,7 @@ const config = require(path.join(__dirname, '../config/config.json'))[env];
 module.exports.register = (server, options, next) => {
   let sequelize;
   if (config.use_env_variable) {
-    sequelize = new Sequelize(process.env[config.use_env_variable]);
+    sequelize = new Sequelize(process.env[config.use_env_variable], config);
   } else {
     sequelize = new Sequelize(config.database, config.username, config.password, config);
   }
@@ -28,11 +28,18 @@ module.exports.register = (server, options, next) => {
       models[modelName].associate(models);
     }
   });
-  console.log(sequelize);
+
   server.decorate('server', 'sequelize', sequelize);
   server.decorate('server', 'sequelizeModels', models);
 
-  next();
+  sequelize.validate().then(() => {
+    server.log(['info', 'hapi-sequelize'], 'Sequelize connected');
+    next();
+  }, (err) => {
+    server.log(['error', 'hapi-sequelize'], 'Sequelize failed to connect');
+    server.log(['error', 'hapi-sequelize'], err);
+    next(err);
+  });
 };
 
 module.exports.register.attributes = {
