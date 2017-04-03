@@ -5,10 +5,10 @@ const paths = [
     handler: (req, res) => {
       res({
         statusCode: 200,
-        message: 'Welcome to the Lifo API'
+        message: 'Welcome to the Lifo API',
       }).code(200);
-    }
-  }
+    },
+  },
 ];
 
 module.exports = paths;
