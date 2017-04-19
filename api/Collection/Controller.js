@@ -13,21 +13,20 @@ const paths = [
     handler: (req, res) => {
       const payload = req.payload;
       service.addAddresses(payload.clients, payload.time, null, null).then(
-        (result) => {
-          res({
-            statusCode: 201,
-            message: 'Successfully added addresses',
-            result,
-          });
-        },
-        (err) => {
-          res({
-            statusCode: 500,
-            message: 'Failed to add addresses',
-            error: err,
-          });
-        },
-      );
+      (result) => {
+        res({
+          statusCode: 201,
+          message: 'Successfully added addresses',
+          result,
+        });
+      },
+      (err) => {
+        res({
+          statusCode: 500,
+          message: 'Failed to add addresses',
+          error: err,
+        });
+      });
     },
   },
   {
