@@ -12,7 +12,7 @@ module.exports.register = (server, options, next) => {
     if (err) return next(err);
     files.forEach((folder) => {
       if (notControllers.indexOf(folder) === -1) {
-        server.log(['info', 'basic-api'], folder);
+        server.log(['info', 'basic-api'], `${folder} Controller`);
 
         const routes = require(path.join(__dirname, folder, 'Controller.js')); // eslint-disable-line global-require
         const updatedRoutes = [];
