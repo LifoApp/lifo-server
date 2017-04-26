@@ -70,6 +70,27 @@ const paths = [
       });
     },
   },
+  {
+    method: 'GET',
+    path: '/{id}/count',
+    handler: (req, res) => {
+      Service.getLocationCount(req.params.id).then(
+      (result) => {
+        res({
+          statusCode: 200,
+          message: 'Successfully counted for Location',
+          result,
+        }).code(200);
+      },
+      (error) => {
+        res({
+          statusCode: 500,
+          message: 'Failed to count for Location',
+          error,
+        }).code(500);
+      });
+    },
+  },
 ];
 
 module.exports = paths;
