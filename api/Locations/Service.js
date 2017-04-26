@@ -1,6 +1,7 @@
 const Promise = require('bluebird');
 
 const server = require('./../../server.js');
+const CollectionService = require('./../Collection/Service.js');
 
 const Models = server.sequelize.models;
 const SLocation = Models.Location;
@@ -19,7 +20,7 @@ const Service = {
         });
       });
       resolve(processedLocations);
-    }), error => new Promise((_, reject) => reject(error)));
+    }));
   },
   createLocation: (location) => {
     const DEFAULT_LOCATION = {
@@ -43,7 +44,7 @@ const Service = {
         longitude: rawLocation.longitude,
         radius: rawLocation.radius,
       });
-    }), error => new Promise((_, reject) => reject(error)));
+    }));
   },
   getLocation: id => SLocation.findById(id).then(rawLocation => new Promise((resolve) => {
     if (!rawLocation) resolve({});
@@ -54,7 +55,14 @@ const Service = {
       longitude: rawLocation.longitude,
       radius: rawLocation.radius,
     });
-  }), error => new Promise((_, reject) => reject(error))),
+  })),
+  getLocationCount: id => SLocation.findById(id).then((location) => {
+    return CollectionService.getAddressesWithinRange({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      radius: location.radius,
+    });
+  }),
 };
 
 module.exports = Service;
