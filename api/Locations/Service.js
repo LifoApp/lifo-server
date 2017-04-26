@@ -56,13 +56,12 @@ const Service = {
       radius: rawLocation.radius,
     });
   })),
-  getLocationCount: id => SLocation.findById(id).then((location) => {
-    return CollectionService.getAddressesWithinRange({
-      latitude: location.latitude,
-      longitude: location.longitude,
-      radius: location.radius,
-    });
-  }),
+  getLocationCount: id => SLocation.findById(id)
+  .then(location => CollectionService.getAddressesWithinRange({
+    latitude: location.latitude,
+    longitude: location.longitude,
+    radius: location.radius,
+  })),
 };
 
 module.exports = Service;
