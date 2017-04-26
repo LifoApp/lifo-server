@@ -62,11 +62,19 @@ const paths = [
         }).code(200);
       },
       (error) => {
-        res({
-          statusCode: 500,
-          message: 'Failed to get Location',
-          error,
-        }).code(500);
+        if (error.code === 404) {
+          res({
+            statusCode: 404,
+            message: 'Location does not exist',
+            error,
+          }).code(404);
+        } else {
+          res({
+            statusCode: 500,
+            message: 'Failed to get Location',
+            error,
+          }).code(500);
+        }
       });
     },
   },
@@ -74,7 +82,7 @@ const paths = [
     method: 'GET',
     path: '/{id}/count',
     handler: (req, res) => {
-      Service.getLocationCount(req.params.id).then(
+      Service.getLocationCount(req.params.id, req.query).then(
       (result) => {
         res({
           statusCode: 200,
@@ -83,11 +91,19 @@ const paths = [
         }).code(200);
       },
       (error) => {
-        res({
-          statusCode: 500,
-          message: 'Failed to count for Location',
-          error,
-        }).code(500);
+        if (error.code === 404) {
+          res({
+            statusCode: 404,
+            message: 'Location does not exist',
+            error,
+          }).code(404);
+        } else {
+          res({
+            statusCode: 500,
+            message: 'Failed to count for Location',
+            error,
+          }).code(500);
+        }
       });
     },
   },

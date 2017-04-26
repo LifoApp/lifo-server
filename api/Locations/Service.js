@@ -1,4 +1,5 @@
 const Promise = require('bluebird');
+const Moment = require('moment');
 
 const server = require('./../../server.js');
 const CollectionService = require('./../Collection/Service.js');
@@ -46,8 +47,8 @@ const Service = {
       });
     }));
   },
-  getLocation: id => SLocation.findById(id).then(rawLocation => new Promise((resolve) => {
-    if (!rawLocation) resolve({});
+  getLocation: id => SLocation.findById(id).then(rawLocation => new Promise((resolve, reject) => {
+    if (!rawLocation) reject({ code: 404 });
     resolve({
       id: rawLocation.id,
       name: rawLocation.name,
@@ -56,12 +57,42 @@ const Service = {
       radius: rawLocation.radius,
     });
   })),
-  getLocationCount: id => SLocation.findById(id)
-  .then(location => CollectionService.getAddressesWithinRange({
-    latitude: location.latitude,
-    longitude: location.longitude,
-    radius: location.radius,
-  })),
+  getLocationCount: (id, query) => SLocation.findById(id)
+  .then((location) => {
+    if (!location) return Promise.reject({ code: 404 });
+    const timeSlices = [];
+    if (query.start && query.end && query.slice) {
+      let previousTime = Moment(query.end);
+      for (let time = Moment(query.end).subtract(query.slice, 'minutes');
+      time.isSameOrAfter(Moment(query.start));
+      time = time.subtract(query.slice, 'minutes')) {
+        timeSlices.push({
+          start: time.toISOString(),
+          end: previousTime.toISOString(),
+        });
+        previousTime = Moment(time);
+      }
+    } else {
+      timeSlices.push({
+        start: Moment().subtract(1, 'hours'),
+        end: Moment(),
+      });
+    }
+    return Promise.map(timeSlices, (slice) => {
+      console.log(slice);
+      return CollectionService.getAddressesWithinRange({
+        latitude: location.latitude,
+        longitude: location.longitude,
+        radius: location.radius,
+        start: slice.start,
+        end: slice.end,
+      });
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+    return Promise.reject(error);
+  }),
 };
 
 module.exports = Service;
