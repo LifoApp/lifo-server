@@ -17,7 +17,7 @@ module.exports.register = (server, options, next) => {
     if (err) return next(err);
     files.forEach((file) => {
       if (notControllers.indexOf(file) === -1) {
-        server.log(['info', 'basic-views'], file);
+        server.log(['info', 'basic-views'], `${path.basename(file, '.js')} Views`);
 
         const routes = require(path.join(__dirname, file)); // eslint-disable-line global-require
         const updatedRoutes = [];
