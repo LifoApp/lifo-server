@@ -36,27 +36,33 @@ var timeLabels = svg.selectAll(".timeLabel")
       .attr("class", function(d, i) { return ((i >= 7 && i <= 16) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
 
 var heatmapChart = function(tsvFile) {
-  d3.tsv(tsvFile,
-  function(d) {
-    return {
-      day: +d.day,
-      hour: +d.hour,
-      value: +d.value
-    };
-  },
-  function(error, data) {
+  const end = moment().minute(0).second(0);
+  const start = moment(end).subtract(1, 'days');
+  const url = `/api/locations/1/count?start=${start.utc().toISOString()}&end=${end.utc().toISOString()}&slice=60`;
+  d3.json(url, (data) => {
+    console.log(data);
+    const list = data.result;
+    const actualList = [];
+    let i = 0;
+    list.forEach((element) => {
+      actualList.push({
+        value: element,
+        index: i,
+      });
+      i += 1;
+    });
     var colorScale = d3.scale.quantile()
-        .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+        .domain([0, buckets - 1, d3.max(actualList, d => d.value)])
         .range(colors);
 
     var cards = svg.selectAll(".hour")
-        .data(data, function(d) {return d.day+':'+d.hour;});
+        .data(actualList, d => d.value);
 
     cards.append("title");
 
     cards.enter().append("rect")
-        .attr("x", function(d) { return (d.hour - 1) * gridSize; })
-        .attr("y", function(d) { return (d.day - 1) * gridSize; })
+        .attr("x", d => d.index * gridSize)
+        .attr("y", () => 0)
         .attr("rx", 4)
         .attr("ry", 4)
         .attr("class", "hour bordered")
@@ -65,9 +71,9 @@ var heatmapChart = function(tsvFile) {
         .style("fill", colors[0]);
 
     cards.transition().duration(1000)
-        .style("fill", function(d) { return colorScale(d.value); });
+        .style("fill", d => colorScale(d.value));
 
-    cards.select("title").text(function(d) { return d.value; });
+    cards.select("title").text(d => d.value);
 
     cards.exit().remove();
 
@@ -91,8 +97,64 @@ var heatmapChart = function(tsvFile) {
       .attr("y", height + gridSize);
 
     legend.exit().remove();
-
   });
+  // d3.tsv(tsvFile,
+  // function(d) {
+  //   return {
+  //     day: +d.day,
+  //     hour: +d.hour,
+  //     value: +d.value
+  //   };
+  // },
+  // function(error, data) {
+  //   var colorScale = d3.scale.quantile()
+  //       .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
+  //       .range(colors);
+  //
+  //   var cards = svg.selectAll(".hour")
+  //       .data(data, function(d) {return d.day+':'+d.hour;});
+  //
+  //   cards.append("title");
+  //
+  //   cards.enter().append("rect")
+  //       .attr("x", function(d) { return (d.hour - 1) * gridSize; })
+  //       .attr("y", function(d) { return (d.day - 1) * gridSize; })
+  //       .attr("rx", 4)
+  //       .attr("ry", 4)
+  //       .attr("class", "hour bordered")
+  //       .attr("width", gridSize)
+  //       .attr("height", gridSize)
+  //       .style("fill", colors[0]);
+  //
+  //   cards.transition().duration(1000)
+  //       .style("fill", function(d) { return colorScale(d.value); });
+  //
+  //   cards.select("title").text(function(d) { return d.value; });
+  //
+  //   cards.exit().remove();
+  //
+  //   var legend = svg.selectAll(".legend")
+  //       .data([0].concat(colorScale.quantiles()), function(d) { return d; });
+  //
+  //   legend.enter().append("g")
+  //       .attr("class", "legend");
+  //
+  //   legend.append("rect")
+  //     .attr("x", function(d, i) { return legendElementWidth * i; })
+  //     .attr("y", height)
+  //     .attr("width", legendElementWidth)
+  //     .attr("height", gridSize / 2)
+  //     .style("fill", function(d, i) { return colors[i]; });
+  //
+  //   legend.append("text")
+  //     .attr("class", "mono")
+  //     .text(function(d) { return "≥ " + Math.round(d); })
+  //     .attr("x", function(d, i) { return legendElementWidth * i; })
+  //     .attr("y", height + gridSize);
+  //
+  //   legend.exit().remove();
+  //
+  // });
 };
 
 heatmapChart(datasets[0]);
