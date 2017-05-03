@@ -82,15 +82,15 @@ const paths = [
     method: 'GET',
     path: '/{id}/count',
     handler: (req, res) => {
-      Service.getLocationCount(req.params.id, req.query).then(
-      (result) => {
+      Service.getLocationCount(req.params.id, req.query)
+      .then(result => Service.adjustValuesForLocation(req.params.id, result))
+      .then((result) => {
         res({
           statusCode: 200,
           message: 'Successfully counted for Location',
           result,
         }).code(200);
-      },
-      (error) => {
+      }).catch((error) => {
         if (error.code === 404) {
           res({
             statusCode: 404,
