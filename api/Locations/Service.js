@@ -66,7 +66,7 @@ const Service = {
       for (let time = Moment(query.end).subtract(query.slice, 'minutes');
       time.isSameOrAfter(Moment(query.start));
       time = time.subtract(query.slice, 'minutes')) {
-        timeSlices.push({
+        timeSlices.unshift({
           start: time.toISOString(),
           end: previousTime.toISOString(),
         });
@@ -78,19 +78,27 @@ const Service = {
         end: Moment(),
       });
     }
-    return Promise.map(timeSlices, (slice) => {
-      console.log(slice);
-      return CollectionService.getAddressesWithinRange({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        radius: location.radius,
-        start: slice.start,
-        end: slice.end,
-      });
-    });
+    return Promise.map(timeSlices, slice => CollectionService.getAddressesWithinRange({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      radius: location.radius,
+      start: slice.start,
+      end: slice.end,
+    }))
+    .then(counts => new Promise((resolve) => {
+      const result = [];
+      for (let i = 0, len = counts.length; i < len; i += 1) {
+        result.push({
+          count: counts[i],
+          start: timeSlices[i].start,
+          end: timeSlices[i].end,
+        });
+      }
+      resolve(result);
+    }));
   })
   .catch((error) => {
-    console.log(error);
+    server.log(['error', 'LocationsService'], error);
     return Promise.reject(error);
   }),
 };
