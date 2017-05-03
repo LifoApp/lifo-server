@@ -66,7 +66,7 @@ const Service = {
       for (let time = Moment(query.end).subtract(query.slice, 'minutes');
       time.isSameOrAfter(Moment(query.start));
       time = time.subtract(query.slice, 'minutes')) {
-        timeSlices.push({
+        timeSlices.unshift({
           start: time.toISOString(),
           end: previousTime.toISOString(),
         });
