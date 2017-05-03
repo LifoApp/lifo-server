@@ -84,6 +84,17 @@ const Service = {
       radius: location.radius,
       start: slice.start,
       end: slice.end,
+    }))
+    .then(counts => new Promise((resolve) => {
+      const result = [];
+      for (let i = 0; i < counts.length; i += 1) {
+        result.push({
+          count: counts[i],
+          start: timeSlices[i].start,
+          end: timeSlices[i].end,
+        });
+      }
+      resolve(result);
     }));
   })
   .catch((error) => {
