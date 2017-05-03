@@ -87,7 +87,7 @@ const Service = {
     }))
     .then(counts => new Promise((resolve) => {
       const result = [];
-      for (let i = 0; i < counts.length; i += 1) {
+      for (let i = 0, len = counts.length; i < len; i += 1) {
         result.push({
           count: counts[i],
           start: timeSlices[i].start,
