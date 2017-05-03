@@ -8,7 +8,6 @@
       url,
     }).then((data) => {
       $('#live-count').text(data.result[0].count);
-      console.log(data);
     }, (error) => {
       console.log(error);
     });
@@ -21,4 +20,15 @@
     updateTimer$ = setTimeout(updateTimer, updateInterval);
   };
   updateTimer();
+
+  $('#live-count-toggle').click(() => {
+    if (updateTimer$) {
+      console.log('Stopping Live Count');
+      clearTimeout(updateTimer$);
+      updateTimer$ = 0;
+    } else {
+      console.log('Coninuing Live Count');
+      updateTimer();
+    }
+  });
 })($);
