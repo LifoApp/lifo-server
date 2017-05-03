@@ -1,4 +1,7 @@
 (($) => {
+  const liveCountField = $('#live-count');
+  const liveCountToggleButton = $('#live-count-toggle');
+
   const updateLiveCount = () => {
     const end = moment();
     const start = moment(end).subtract(5, 'minutes');
@@ -7,7 +10,7 @@
       dataType: 'json',
       url,
     }).then((data) => {
-      $('#live-count').text(data.result[0].count);
+      liveCountField.text(data.result[0].count);
     }, (error) => {
       console.log(error);
     });
@@ -21,14 +24,21 @@
   };
   updateTimer();
 
-  $('#live-count-toggle').click(() => {
+  liveCountToggleButton.click(() => {
     if (updateTimer$) {
       console.log('Stopping Live Count');
       clearTimeout(updateTimer$);
       updateTimer$ = 0;
+
+      liveCountField.css({ color: 'red' });
+      liveCountToggleButton.text('Restart Live Count');
     } else {
       console.log('Coninuing Live Count');
+      liveCountField.text('??');
       updateTimer();
+
+      liveCountField.css({ color: '' });
+      liveCountToggleButton.text('Stop Live Count');
     }
   });
 })($);
