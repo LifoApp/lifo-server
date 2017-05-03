@@ -115,6 +115,7 @@ const Service = {
       const result = [];
       for (let i = 0, len = counts.length; i < len; i += 1) {
         result.push({
+          rawCount: timeSlices[i].count,
           count: timeSlices[i].count - counts[i],
           start: timeSlices[i].start,
           end: timeSlices[i].end,
