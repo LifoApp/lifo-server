@@ -78,19 +78,16 @@ const Service = {
         end: Moment(),
       });
     }
-    return Promise.map(timeSlices, (slice) => {
-      console.log(slice);
-      return CollectionService.getAddressesWithinRange({
-        latitude: location.latitude,
-        longitude: location.longitude,
-        radius: location.radius,
-        start: slice.start,
-        end: slice.end,
-      });
-    });
+    return Promise.map(timeSlices, slice => CollectionService.getAddressesWithinRange({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      radius: location.radius,
+      start: slice.start,
+      end: slice.end,
+    }));
   })
   .catch((error) => {
-    console.log(error);
+    server.log(['error', 'LocationsService'], error);
     return Promise.reject(error);
   }),
 };
