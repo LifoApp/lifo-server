@@ -1,0 +1,124 @@
+<doctype html>
+<!--
+  // CONTRIBUTORS //
+  Hyperspace by HTML5 UP
+-->
+<html>
+  {% set title = "LIFO - Home" %}
+  {% include "components/_head.html" %}
+
+  <body>
+    <!-- Logo Bar -->
+    <section id="logoBar">
+      <div class="row">
+        <div id="logoIcon">
+          <a href="/live-demo" class="image"><img src="/static/images/logoIcon_01.png" alt="" data-position="top center" /></a>
+        </div>
+        <div style="padding-left: 73em;" id="userName">
+          Jimmy B.
+        </div>
+        <div style="padding-left: 1em;">
+          <a href="/live-demo/login" class=" icon fa-sign-out " /></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Topbar -->
+    <section id="sidebar">
+      <div class="inner">
+        <nav>
+          <ul>
+            <li><a href="#" class="active">Home Menu</a></li>
+            <li><a href="#Graphs">Analytics</a></li>
+            <li><a href="#">Settings</a></li>
+          </ul>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Header -->
+    <header id="header">
+    </header>
+
+    <!-- Wrapper -->
+    <!--style="background-color: #202033;"-->
+    <!--style="background-image: url("images/pic07.jpg")"-->
+    <div style="background-color: #202033;" id="wrapper">
+      <!-- Main -->
+      <section id="main" class="wrapper">
+        <div class="inner">
+          <div class="row uniform" >
+
+            <!-- R1: Left Tile -->
+            <div class="3u 12u$(xsmall)">
+            <div class="features">
+            <p>Averages / Summary</p>
+            <span class="image fit" ><img src="/static/images/pic02.jpg" alt="" /></span>
+            </div>
+            </div>
+            <!-- R1: Middle Tile-->
+            <!--https://bl.ocks.org/kerryrodden/7090426-->
+            <div class="6u 12u$(xsmall)">
+              <div class="features" id="R1_MidTile">
+                <!--<p>MID</p>-->
+                <div style="margin-left:auto;margin-right:auto;" class="column">
+                  <a href="#" class="numTopLeft">
+                    <center><h2 id="live-count"> ?? </h2> LIVE COUNT </center>
+                  </a>
+                  <button id="live-count-toggle">Toggle Live Update</button>
+                  <!-- <p></p> -->
+                  <!-- <a href="#" class="numBotLeft">
+                    <center><h2> 25 </h2> VISITOR COUNT  </center>
+                  </a> -->
+                </div>
+                <!--<div class="2u"><span class="image fit"><img src="images/pic02.jpg" alt="" /></span></div>	-->
+                <!-- <div style="padding-left:20px; padding-right:20px;"class="column">
+                  <span class="image fit"><img src="/static/images/pic02.jpg" alt="" /></span>
+                </div> -->
+                <!-- <div style="padding-top:50px;" class="column">
+                  <a href="#" class="numTopRight">
+                    <center><h2> 5724 </h2> MONTHLY </center>
+                  </a>
+                  <p></p>
+                  <a href="#" class="numBotRight">
+                    <center><h2> 41 </h2> WALK BYS  </center>
+                  </a>
+                </div> -->
+
+              </div>
+            </div>
+            <!-- R1: Right Tile-->
+            <div class="3u 12u$(xsmall)">
+              <!--style="padding-top:85px;"-->
+              <div  class="features">
+                <p>Anomolies</p>
+                <span class="image fit"><img src="/static/images/pic02.jpg" alt="" /></span>
+              </div>
+            </div>
+
+            <!-- R2: Tile -->
+            <div class="12u$" id="Graphs">
+              <div class="features">
+                <p>Graphs & Analytics </p>
+                <span class="image fit"><img src="/static/images/pic04.jpg" alt="" /></span>
+              </div>
+            </div>
+
+            <!-- R3: Tile -->
+            <div class="12u$">
+              <div class="features">
+                <p>Notes</p>
+                <span class="image fit"><img src="/static/images/pic04.jpg" alt="" /></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    {% include "components/_footer.html" %}
+    {% include "components/_scripts.html" %}
+    <script src="/static/js/index.js"></script>
+
+  </body>
+</html>
