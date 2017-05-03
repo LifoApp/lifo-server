@@ -101,6 +101,28 @@ const Service = {
     server.log(['error', 'LocationsService'], error);
     return Promise.reject(error);
   }),
+  adjustValuesForLocation: (id, timeSlices) => SLocation.findById(id)
+  .then((location) => {
+    if (!location) return Promise.reject({ code: 404 });
+    return Promise.map(timeSlices, slice => CollectionService.getAddressesWithinRange({
+      latitude: location.latitude,
+      longitude: location.longitude,
+      radius: location.radius,
+      start: Moment(slice.start).startOf('day'),
+      end: Moment(slice.start).startOf('day').add(10, 'minutes'),
+    }))
+    .then(counts => new Promise((resolve) => {
+      const result = [];
+      for (let i = 0, len = counts.length; i < len; i += 1) {
+        result.push({
+          count: timeSlices[i].count - counts[i],
+          start: timeSlices[i].start,
+          end: timeSlices[i].end,
+        });
+      }
+      resolve(result);
+    }));
+  }),
 };
 
 module.exports = Service;
