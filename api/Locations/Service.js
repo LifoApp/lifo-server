@@ -108,8 +108,8 @@ const Service = {
       latitude: location.latitude,
       longitude: location.longitude,
       radius: location.radius,
-      start: Moment(slice.start).startOf('day'),
-      end: Moment(slice.start).startOf('day').add(10, 'minutes'),
+      start: Moment(slice.start).startOf('day').add(9, 'hours'),
+      end: Moment(slice.start).startOf('day').add(9, 'hours').add(10, 'minutes'),
     }))
     .then(counts => new Promise((resolve) => {
       const result = [];
