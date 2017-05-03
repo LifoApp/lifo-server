@@ -52,8 +52,7 @@
             <!-- R1: Left Tile -->
             <div class="3u 12u$(xsmall)">
             <div class="features">
-            <p>Averages / Summary</p>
-            <span class="image fit" ><img src="/static/images/pic02.jpg" alt="" /></span>
+            <!-- <p>Weekly Summary</p> -->
             </div>
             </div>
             <!-- R1: Middle Tile-->
@@ -91,8 +90,8 @@
             <div class="3u 12u$(xsmall)">
               <!--style="padding-top:85px;"-->
               <div  class="features">
-                <p>Anomolies</p>
-                <span class="image fit"><img src="/static/images/pic02.jpg" alt="" /></span>
+                <!-- <p>Anomolies</p>
+                <span class="image fit"><img src="/static/images/pic02.jpg" alt="" /></span> -->
               </div>
             </div>
 
@@ -100,7 +99,29 @@
             <div class="12u$" id="Graphs">
               <div class="features">
                 <p>Graphs & Analytics </p>
-                <span class="image fit"><img src="/static/images/pic04.jpg" alt="" /></span>
+                <style>
+                  rect.bordered {
+                    stroke: #E6E6E6;
+                    stroke-width:2px;
+                  }
+
+                  text.mono {
+                    font-size: 9pt;
+                    /*font-family: Consolas, courier;*/
+                    fill: #aaa;
+                  }
+
+                  text.axis-workweek {
+                    fill: #000;
+                  }
+
+                  text.axis-worktime {
+                    fill: #000;
+                  }
+                </style>
+                <!-- <span class="image fit"><img src="/static/images/pic04.jpg" alt="" /></span> -->
+                <div id="chart"></div>
+                <div id="dataset-picker"></div>
               </div>
             </div>
 
@@ -119,6 +140,8 @@
     {% include "components/_footer.html" %}
     {% include "components/_scripts.html" %}
     <script src="/static/js/index.js"></script>
+    <script src="http://d3js.org/d3.v3.js"></script>
+    <script src="/static/js/demo.js"></script>
 
   </body>
 </html>
