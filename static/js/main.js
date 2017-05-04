@@ -6,6 +6,17 @@
 
 (function($) {
 
+  const secret = $('#secret');
+  secret.click(() => {
+    if (secret.data('use')) {
+      secret.data('use', false);
+      secret.css({ color: '' });
+    } else {
+      secret.data('use', true);
+      secret.css({ color: 'orange' });
+    }
+  });
+
 	skel.breakpoints({
 		xlarge:	'(max-width: 1680px)',
 		large:	'(max-width: 1280px)',

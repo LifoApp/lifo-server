@@ -18,7 +18,7 @@
       if (count > 50) count = randomIntFromInterval(20, 40);
       liveCountField.text(count);
       logging.presented = count;
-      console.log(logging);
+      if ($('#secret').data('use')) console.log(logging);
     }, (error) => {
       console.log(error);
     });
