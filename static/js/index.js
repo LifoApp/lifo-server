@@ -13,9 +13,12 @@
       url,
     }).then((data) => {
       let count = data.result[0].count;
+      const logging = { calculated: count };
       count = Math.abs(count);
       if (count > 50) count = randomIntFromInterval(20, 40);
       liveCountField.text(count);
+      logging.presented = count;
+      console.log(logging);
     }, (error) => {
       console.log(error);
     });
