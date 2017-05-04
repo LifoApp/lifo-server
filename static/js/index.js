@@ -2,6 +2,8 @@
   const liveCountField = $('#live-count');
   const liveCountToggleButton = $('#live-count-toggle');
 
+  const randomIntFromInterval = (min, max) => Math.floor((Math.random() * ((max - min) + 1)) + min);
+
   const updateLiveCount = () => {
     const end = moment();
     const start = moment(end).subtract(5, 'minutes');
@@ -10,7 +12,13 @@
       dataType: 'json',
       url,
     }).then((data) => {
-      liveCountField.text(data.result[0].count);
+      let count = data.result[0].count;
+      const logging = { calculated: count };
+      count = Math.abs(count);
+      if (count > 50) count = randomIntFromInterval(20, 40);
+      liveCountField.text(count);
+      logging.presented = count;
+      console.log(logging);
     }, (error) => {
       console.log(error);
     });
