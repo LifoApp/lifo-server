@@ -6,11 +6,9 @@
   "scripts": {
     "postinstall": "while read line; do export $line; done < .env; sequelize --url $DATABASE_URL db:migrate",
     "start": "node server.js",
-    "test": "mocha --recursive --require mocha-istanbul 'test' && istanbul report text-summary lcov",
+    "test": "lab -vcC -r lcov -o coverage/lcov.info -r html -o coverage/index.html -r console -o stdout",
     "lint": "eslint server.js **/*.js **/**/*.js",
-    "report": "istanbul report",
-    "report-summary": "istanbul report text-summary lcov",
-    "codecov": "mocha --recursive --require mocha-istanbul 'test' && istanbul report && codecov",
+    "codecov": "npm test; codecov",
     "sequelize": "while read line; do export $line; done < .env && sequelize",
     "nodemon": "nodemon -e js,json,html,css server.js"
   },
@@ -45,9 +43,7 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-config-airbnb-base": "^11.1.0",
     "eslint-plugin-import": "^2.2.0",
-    "istanbul": "^0.4.5",
-    "mocha": "^3.2.0",
-    "mocha-istanbul": "^0.3.0",
+    "lab": "^13.1.0",
     "nodemon": "^1.11.0"
   },
   "dependencies": {
