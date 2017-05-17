@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Locations', {
     id: {
@@ -27,7 +28,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: (queryInterface, Sequelize) => { // eslint-disable-line
-    return queryInterface.dropTable('Locations');
-  },
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Locations'),
 };
