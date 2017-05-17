@@ -1,20 +1,24 @@
 language: node_js
 node_js:
-- '7.4'
+  - '7.4'
+services:
+  - postgresql
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.8
-    - g++-4.8
+      - gcc-4.8
+      - g++-4.8
 env:
-- TRAVIS=travis CXX=g++-4.8
+- TRAVIS=travis CXX=g++-4.8 DATABASE_URL=postgres://postgres@localhost:5432/travis_ci_test
+before_install:
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
-- npm test
-- npm run lint
+  - npm test
+  - npm run lint
 after_script:
-- npm run codecov
+  - npm run codecov
 notifications:
   email: false
   slack:
